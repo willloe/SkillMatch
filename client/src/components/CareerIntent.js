@@ -11,13 +11,15 @@ function CareerIntent({ onNext }) {
   };
 
   return (
-    <div className="border p-4 rounded shadow space-y-4">
-      <h2 className="text-xl font-semibold">Step 2: Career Intent</h2>
+    <div className="bg-white shadow-neumorphism rounded-xl p-6 space-y-4">
+      <h2 className="text-xl font-semibold flex items-center gap-2">
+        <span className="text-2xl">🎯</span> Step 2: Career Intent
+      </h2>
 
-      <div>
-        <label className="font-semibold">What is your career goal?</label>
+      <div className="space-y-2">
+        <label className="font-semibold block">What is your career goal?</label>
         <select
-          className="block w-full border rounded p-2 mt-1"
+          className="w-full p-2 rounded-xl shadow-inner-neumorphism border-none focus:outline-none"
           value={intent}
           onChange={(e) => setIntent(e.target.value)}
         >
@@ -28,10 +30,10 @@ function CareerIntent({ onNext }) {
         </select>
       </div>
 
-      <div>
-        <label className="font-semibold">What’s your budget for learning?</label>
+      <div className="space-y-2">
+        <label className="font-semibold block">What’s your budget for learning?</label>
         <select
-          className="block w-full border rounded p-2 mt-1"
+          className="w-full p-2 rounded-xl shadow-inner-neumorphism border-none focus:outline-none"
           value={budget}
           onChange={(e) => setBudget(e.target.value)}
         >
@@ -42,10 +44,10 @@ function CareerIntent({ onNext }) {
         </select>
       </div>
 
-      <div>
-        <label className="font-semibold">Hours/week you can commit:</label>
+      <div className="space-y-2">
+        <label className="font-semibold block">Hours/week you can commit:</label>
         <input
-          className="w-full border rounded p-2 mt-1"
+          className="w-full p-2 rounded-xl shadow-inner-neumorphism border-none focus:outline-none"
           type="number"
           value={time}
           onChange={(e) => setTime(e.target.value)}
@@ -55,7 +57,7 @@ function CareerIntent({ onNext }) {
 
       <button
         onClick={handleSubmit}
-        className="mt-4 bg-green-600 text-white px-4 py-2 rounded"
+        className="mt-4 bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded-xl transition shadow-neumorphism-button"
       >
         Continue
       </button>

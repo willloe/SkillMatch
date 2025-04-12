@@ -1,0 +1,28 @@
+/* src/styles/global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === Neumorphism Theme Utilities === */
+
+.shadow-neumorphism {
+  box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
+}
+
+.shadow-inner-neumorphism {
+  box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff;
+}
+
+.shadow-neumorphism-button {
+  box-shadow: 4px 4px 6px #c5ccd9, -2px -2px 4px #ffffff;
+  transition: all 0.2s ease-in-out;
+}
+
+.shadow-neumorphism-button:hover {
+  box-shadow: inset 2px 2px 5px #c5ccd9, inset -1px -1px 3px #ffffff;
+}
+
+/* Typography and general theme */
+body {
+  @apply bg-[#e0e5ec] text-gray-800 font-sans;
+}
