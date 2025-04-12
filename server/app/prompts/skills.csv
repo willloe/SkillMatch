@@ -1,0 +1,244 @@
+Element Name,Domain
+Arm-Hand Steadiness,Abilities
+Auditory Attention,Abilities
+Category Flexibility,Abilities
+Control Precision,Abilities
+Deductive Reasoning,Abilities
+Depth Perception,Abilities
+Dynamic Flexibility,Abilities
+Dynamic Strength,Abilities
+Explosive Strength,Abilities
+Extent Flexibility,Abilities
+Far Vision,Abilities
+Finger Dexterity,Abilities
+Flexibility of Closure,Abilities
+Fluency of Ideas,Abilities
+Glare Sensitivity,Abilities
+Gross Body Coordination,Abilities
+Gross Body Equilibrium,Abilities
+Hearing Sensitivity,Abilities
+Inductive Reasoning,Abilities
+Information Ordering,Abilities
+Manual Dexterity,Abilities
+Mathematical Reasoning,Abilities
+Memorization,Abilities
+Multilimb Coordination,Abilities
+Near Vision,Abilities
+Night Vision,Abilities
+Number Facility,Abilities
+Oral Comprehension,Abilities
+Oral Expression,Abilities
+Originality,Abilities
+Perceptual Speed,Abilities
+Peripheral Vision,Abilities
+Problem Sensitivity,Abilities
+Rate Control,Abilities
+Reaction Time,Abilities
+Response Orientation,Abilities
+Selective Attention,Abilities
+Sound Localization,Abilities
+Spatial Orientation,Abilities
+Speech Clarity,Abilities
+Speech Recognition,Abilities
+Speed of Closure,Abilities
+Speed of Limb Movement,Abilities
+Stamina,Abilities
+Static Strength,Abilities
+Time Sharing,Abilities
+Trunk Strength,Abilities
+Visual Color Discrimination,Abilities
+Visualization,Abilities
+Wrist-Finger Speed,Abilities
+Written Comprehension,Abilities
+Written Expression,Abilities
+Administration and Management,Knowledge
+Administrative,Knowledge
+Biology,Knowledge
+Building and Construction,Knowledge
+Chemistry,Knowledge
+Communications and Media,Knowledge
+Computers and Electronics,Knowledge
+Customer and Personal Service,Knowledge
+Design,Knowledge
+Economics and Accounting,Knowledge
+Education and Training,Knowledge
+Engineering and Technology,Knowledge
+English Language,Knowledge
+Fine Arts,Knowledge
+Food Production,Knowledge
+Foreign Language,Knowledge
+Geography,Knowledge
+History and Archeology,Knowledge
+Law and Government,Knowledge
+Mathematics,Knowledge
+Mechanical,Knowledge
+Medicine and Dentistry,Knowledge
+Personnel and Human Resources,Knowledge
+Philosophy and Theology,Knowledge
+Physics,Knowledge
+Production and Processing,Knowledge
+Psychology,Knowledge
+Public Safety and Security,Knowledge
+Sales and Marketing,Knowledge
+Sociology and Anthropology,Knowledge
+Telecommunications,Knowledge
+Therapy and Counseling,Knowledge
+Transportation,Knowledge
+Active Learning,Skills
+Active Listening,Skills
+Complex Problem Solving,Skills
+Coordination,Skills
+Critical Thinking,Skills
+Equipment Maintenance,Skills
+Equipment Selection,Skills
+Installation,Skills
+Instructing,Skills
+Judgment and Decision Making,Skills
+Learning Strategies,Skills
+Management of Financial Resources,Skills
+Management of Material Resources,Skills
+Management of Personnel Resources,Skills
+Mathematics,Skills
+Monitoring,Skills
+Negotiation,Skills
+Operation and Control,Skills
+Operations Analysis,Skills
+Operations Monitoring,Skills
+Persuasion,Skills
+Programming,Skills
+Quality Control Analysis,Skills
+Reading Comprehension,Skills
+Repairing,Skills
+Science,Skills
+Service Orientation,Skills
+Social Perceptiveness,Skills
+Speaking,Skills
+Systems Analysis,Skills
+Systems Evaluation,Skills
+Technology Design,Skills
+Time Management,Skills
+Troubleshooting,Skills
+Writing,Skills
+Analyzing Data or Information,Work Activities
+Assisting and Caring for Others,Work Activities
+Coaching and Developing Others,Work Activities
+Communicating with People Outside the Organization,Work Activities
+"Communicating with Supervisors, Peers, or Subordinates",Work Activities
+Controlling Machines and Processes,Work Activities
+Coordinating the Work and Activities of Others,Work Activities
+Developing Objectives and Strategies,Work Activities
+Developing and Building Teams,Work Activities
+Documenting/Recording Information,Work Activities
+"Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment",Work Activities
+Establishing and Maintaining Interpersonal Relationships,Work Activities
+"Estimating the Quantifiable Characteristics of Products, Events, or Information",Work Activities
+Evaluating Information to Determine Compliance with Standards,Work Activities
+Getting Information,Work Activities
+"Guiding, Directing, and Motivating Subordinates",Work Activities
+Handling and Moving Objects,Work Activities
+"Identifying Objects, Actions, and Events",Work Activities
+"Inspecting Equipment, Structures, or Materials",Work Activities
+Interpreting the Meaning of Information for Others,Work Activities
+"Judging the Qualities of Objects, Services, or People",Work Activities
+Making Decisions and Solving Problems,Work Activities
+"Monitoring Processes, Materials, or Surroundings",Work Activities
+Monitoring and Controlling Resources,Work Activities
+"Operating Vehicles, Mechanized Devices, or Equipment",Work Activities
+"Organizing, Planning, and Prioritizing Work",Work Activities
+Performing Administrative Activities,Work Activities
+Performing General Physical Activities,Work Activities
+Performing for or Working Directly with the Public,Work Activities
+Processing Information,Work Activities
+Providing Consultation and Advice to Others,Work Activities
+Repairing and Maintaining Electronic Equipment,Work Activities
+Repairing and Maintaining Mechanical Equipment,Work Activities
+Resolving Conflicts and Negotiating with Others,Work Activities
+Scheduling Work and Activities,Work Activities
+Selling or Influencing Others,Work Activities
+Staffing Organizational Units,Work Activities
+Thinking Creatively,Work Activities
+Training and Teaching Others,Work Activities
+Updating and Using Relevant Knowledge,Work Activities
+Working with Computers,Work Activities
+Conflict Situations,Work Context
+Consequence of Error,Work Context
+Contact With Others,Work Context
+Coordinate or Lead Others in Accomplishing Work Activities,Work Context
+Deal With External Customers or the Public in General,Work Context
+"Dealing With Unpleasant, Angry, or Discourteous People",Work Context
+Dealing with Violent or Physically Aggressive People,Work Context
+Degree of Automation,Work Context
+"Determine Tasks, Priorities and Goals",Work Context
+Duration of Typical Work Week,Work Context
+E-Mail,Work Context
+Exposed to Contaminants,Work Context
+"Exposed to Cramped Work Space, Awkward Positions",Work Context
+Exposed to Disease or Infections,Work Context
+Exposed to Extremely Bright or Inadequate Lighting Conditions,Work Context
+Exposed to Hazardous Conditions,Work Context
+Exposed to Hazardous Equipment,Work Context
+Exposed to High Places,Work Context
+"Exposed to Minor Burns, Cuts, Bites, or Stings",Work Context
+Exposed to Radiation,Work Context
+"Exposed to Sounds, Noise Levels that are Distracting or Uncomfortable",Work Context
+Exposed to Very Hot or Cold Temperatures,Work Context
+Exposed to Whole Body Vibration,Work Context
+Face-to-Face Discussions with Individuals and Within Teams,Work Context
+Freedom to Make Decisions,Work Context
+Frequency of Decision Making,Work Context
+Health and Safety of Other Workers,Work Context
+Impact of Decisions on Co-workers or Company Results,Work Context
+Importance of Being Exact or Accurate,Work Context
+Importance of Repeating Same Tasks,Work Context
+In an Enclosed Vehicle or Operate Enclosed Equipment,Work Context
+In an Open Vehicle or Operating Equipment,Work Context
+"Indoors, Environmentally Controlled",Work Context
+"Indoors, Not Environmentally Controlled",Work Context
+Level of Competition,Work Context
+"Outdoors, Exposed to All Weather Conditions",Work Context
+"Outdoors, Under Cover",Work Context
+Pace Determined by Speed of Equipment,Work Context
+Physical Proximity,Work Context
+Public Speaking,Work Context
+Spend Time Bending or Twisting Your Body,Work Context
+"Spend Time Climbing Ladders, Scaffolds, or Poles",Work Context
+Spend Time Keeping or Regaining Balance,Work Context
+"Spend Time Kneeling, Crouching, Stooping, or Crawling",Work Context
+Spend Time Making Repetitive Motions,Work Context
+Spend Time Sitting,Work Context
+Spend Time Standing,Work Context
+"Spend Time Using Your Hands to Handle, Control, or Feel Objects, Tools, or Controls",Work Context
+Spend Time Walking or Running,Work Context
+Telephone Conversations,Work Context
+Time Pressure,Work Context
+"Wear Common Protective or Safety Equipment such as Safety Shoes, Glasses, Gloves, Hearing Protection, Hard Hats, or Life Jackets",Work Context
+"Wear Specialized Protective or Safety Equipment such as Breathing Apparatus, Safety Harness, Full Protection Suits, or Radiation Protection",Work Context
+Work Outcomes and Results of Other Workers,Work Context
+Work Schedules,Work Context
+Work With or Contribute to a Work Group or Team,Work Context
+Written Letters and Memos,Work Context
+Achievement/Effort,Work Styles
+Adaptability/Flexibility,Work Styles
+Analytical Thinking,Work Styles
+Attention to Detail,Work Styles
+Concern for Others,Work Styles
+Cooperation,Work Styles
+Dependability,Work Styles
+Independence,Work Styles
+Initiative,Work Styles
+Innovation,Work Styles
+Integrity,Work Styles
+Leadership,Work Styles
+Persistence,Work Styles
+Self-Control,Work Styles
+Social Orientation,Work Styles
+Stress Tolerance,Work Styles
+Achievement,Work Values
+First Work Value High-Point,Work Values
+Independence,Work Values
+Recognition,Work Values
+Relationships,Work Values
+Second Work Value High-Point,Work Values
+Support,Work Values
+Third Work Value High-Point,Work Values
+Working Conditions,Work Values

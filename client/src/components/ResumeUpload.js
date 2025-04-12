@@ -23,6 +23,12 @@ function ResumeUpload({ onComplete }) {
 
       const data = await response.json();
 
+      if (!response.ok) {
+        console.error("❌ Upload failed:", data);
+        alert(`Upload failed: ${data.error || 'Unknown error'}`);
+        return;
+      }
+
       if (data.success && onComplete) {
         let parsedQuestions = data.questions;
         if (typeof data.questions === "string") {
@@ -33,10 +39,15 @@ function ResumeUpload({ onComplete }) {
           }
         }
         
-        const incomingQuestions = Array.isArray(parsedQuestions?.questions)
-          ? parsedQuestions.questions
+        console.log("📦 Response data:", data);
+        // console.log("Questions data:", data.questions);
+        // console.log("Parsed data:", parsedQuestions);
+
+        const incomingQuestions = Array.isArray(parsedQuestions)
+          ? parsedQuestions
           : [];
 
+        // console.log("Questions data:", incomingQuestions);
         onComplete(incomingQuestions); // Pass up to SkillMatchFlow
       }
     } catch (err) {

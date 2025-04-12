@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
-from datetime import datetime
+import datetime
 
 load_dotenv()
 MONGODB_URI = os.getenv('MONGODB_URI')
@@ -12,7 +12,7 @@ resumes_collection = db['resumes']
 
 def save_resume_to_mongo(user_id, text, upload_time=None):
     if upload_time is None:
-        upload_time = datetime.utcnow()
+        upload_time = datetime.datetime.now()
 
     resume_data = {
         'user_id': user_id,
