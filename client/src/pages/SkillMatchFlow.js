@@ -7,9 +7,9 @@ import Results from "../components/Results";
 
 function SkillMatchFlow() {
   const [step, setStep] = useState(1);
-  const [resumeText, setResumeText] = useState("");
-  const [embeddingResult, setEmbeddingResult] = useState(null);
-  const [intentData, setIntentData] = useState(null);
+  const [questions, setQuestions] = useState([]);
+  const [allAnswers, setAllAnswers] = useState({});
+  const [careerIntent, setCareerIntent] = useState(null);
 
   return (
     <div className="max-w-2xl mx-auto p-6 space-y-8">
@@ -17,27 +17,27 @@ function SkillMatchFlow() {
       <StepIndicator current={step} /> 
       <StepWrapper visible={step >= 1}>
         <ResumeUpload
-          onAnalyze={(resume, result) => {
-            setResumeText(resume);
-            setEmbeddingResult(result);
+          onComplete={(questions) => {
+            setQuestions(questions); // pass from child up to SkillMatchFlow
             setStep(2);
           }}
         />
       </StepWrapper>
       <StepWrapper visible={step >= 2}>
-        <CareerIntent
-          onNext={(intent) => {
-            setIntentData(intent);
-            setStep(3);
-          }}
-        />
+      <CareerIntent
+        questions={questions}
+        onAllAnswered={(answers) => {
+          setCareerIntent(answers["What is your career aspiration?"] || "Unspecified");
+          setAllAnswers(answers); // If you want to track all
+          setStep(3);
+        }}
+      />
       </StepWrapper>
-      <StepWrapper visible={step === 3 && embeddingResult && intentData}>
-        <Results
-          resume={resumeText}
-          results={embeddingResult}
-          intent={intentData}
-        />
+      <StepWrapper visible={step === 3}>
+      <Results
+          careerIntent={careerIntent}
+          answers={allAnswers}
+      />
       </StepWrapper>
     </div>
   );

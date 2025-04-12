@@ -8,6 +8,7 @@ server/venv/
 __pycache__/
 *.pyc
 server/.env
+uploads/
 
 # OS/system files
 .DS_Store

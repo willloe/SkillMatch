@@ -1,24 +1,25 @@
 import React from "react";
 
-function Results({ resume, results, intent }) {
-  return (
-    <div className="bg-white shadow-neumorphism rounded-xl p-6 space-y-4">
-      <h2 className="text-xl font-semibold flex items-center gap-2">
-        <span className="text-2xl">📊</span> Step 3: Results
-      </h2>
+function Results({ careerIntent, answers }) {
+  const entries = Object.entries(answers);
 
-      <div className="space-y-2">
-        <h3 className="font-semibold">Your Intent:</h3>
-        <p><strong>Career Goal:</strong> {intent.intent}</p>
-        <p><strong>Budget:</strong> {intent.budget}</p>
-        <p><strong>Time per week:</strong> {intent.time} hrs</p>
+  return (
+    <div className="p-6 bg-white rounded shadow mt-4 max-w-xl mx-auto">
+      <h2 className="text-2xl font-bold mb-4">Your Career Plan Summary</h2>
+
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold">Your Selected Career Intent:</h3>
+        <p className="text-blue-700 mt-2">{careerIntent}</p>
       </div>
 
       <div>
-        <h3 className="font-semibold mt-4">Extracted Skills:</h3>
-        <ul className="list-disc ml-6 text-gray-800">
-          {(results?.skills || []).map((skill, idx) => (
-            <li key={idx}>{skill}</li>
+        <h3 className="text-lg font-semibold mb-2">Your Answers:</h3>
+        <ul className="space-y-4">
+          {entries.map(([question, answer], idx) => (
+            <li key={idx} className="bg-gray-50 p-4 rounded shadow">
+              <p className="font-medium mb-1">{question}</p>
+              <p className="text-blue-600">{answer}</p>
+            </li>
           ))}
         </ul>
       </div>

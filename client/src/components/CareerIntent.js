@@ -1,66 +1,45 @@
 import React, { useState } from "react";
 
-function CareerIntent({ onNext }) {
-  const [intent, setIntent] = useState("");
-  const [budget, setBudget] = useState("");
-  const [time, setTime] = useState("");
+function CareerIntent({ questions, onAllAnswered }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [answers, setAnswers] = useState({});
 
-  const handleSubmit = () => {
-    if (!intent || !budget || !time) return;
-    onNext({ intent, budget, time });
+  const currentQuestion = questions[currentIndex];
+
+  const handleSelect = (selectedOption) => {
+    const newAnswers = {
+      ...answers,
+      [currentQuestion.text]: selectedOption,
+    };
+
+    setAnswers(newAnswers);
+
+    if (currentIndex + 1 < questions.length) {
+      setCurrentIndex(currentIndex + 1);
+    } else {
+      // Done!
+      onAllAnswered(newAnswers);
+    }
   };
 
+  if (!currentQuestion) return null;
+
   return (
-    <div className="bg-white shadow-neumorphism rounded-xl p-6 space-y-4">
-      <h2 className="text-xl font-semibold flex items-center gap-2">
-        <span className="text-2xl">🎯</span> Step 2: Career Intent
-      </h2>
+    <div className="p-6 bg-white rounded shadow mt-4 max-w-xl mx-auto">
+      <h2 className="text-lg font-bold mb-4">Question {currentIndex + 1} of {questions.length}</h2>
+      <p className="text-md font-semibold mb-3">{currentQuestion.text}</p>
 
       <div className="space-y-2">
-        <label className="font-semibold block">What is your career goal?</label>
-        <select
-          className="w-full p-2 rounded-xl shadow-inner-neumorphism border-none focus:outline-none"
-          value={intent}
-          onChange={(e) => setIntent(e.target.value)}
-        >
-          <option value="">Select...</option>
-          <option value="upskill">Upskill in current job</option>
-          <option value="switch">Switch to a new career</option>
-          <option value="explore">Just exploring</option>
-        </select>
+        {currentQuestion.options.map((opt, idx) => (
+          <button
+            key={idx}
+            onClick={() => handleSelect(opt)}
+            className="block w-full text-left px-4 py-2 bg-blue-50 hover:bg-blue-100 rounded"
+          >
+            {opt}
+          </button>
+        ))}
       </div>
-
-      <div className="space-y-2">
-        <label className="font-semibold block">What’s your budget for learning?</label>
-        <select
-          className="w-full p-2 rounded-xl shadow-inner-neumorphism border-none focus:outline-none"
-          value={budget}
-          onChange={(e) => setBudget(e.target.value)}
-        >
-          <option value="">Select...</option>
-          <option value="free">Free only</option>
-          <option value="low">Under $100</option>
-          <option value="any">Flexible</option>
-        </select>
-      </div>
-
-      <div className="space-y-2">
-        <label className="font-semibold block">Hours/week you can commit:</label>
-        <input
-          className="w-full p-2 rounded-xl shadow-inner-neumorphism border-none focus:outline-none"
-          type="number"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-          placeholder="e.g., 5"
-        />
-      </div>
-
-      <button
-        onClick={handleSubmit}
-        className="mt-4 bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded-xl transition shadow-neumorphism-button"
-      >
-        Continue
-      </button>
     </div>
   );
 }
