@@ -1,0 +1,22 @@
+# Node (React frontend)
+client/node_modules/
+client/build/
+client/.env
+
+# Python (backend)
+server/venv/
+__pycache__/
+*.pyc
+server/.env
+
+# OS/system files
+.DS_Store
+Thumbs.db
+
+# IDE/editor
+.vscode/
+.idea/
+*.log
+
+# Misc
+.env
