@@ -1,11 +1,13 @@
 import React from "react";
 
-function StepWrapper({ visible, children }) {
+const StepWrapper = React.forwardRef(function StepWrapper({ children, visible }, ref) {
+  if (!visible) return null;
+
   return (
-    <div className={`step-transition ${visible ? "step-visible" : "step-hidden"}`}>
-      {visible ? children : null}
+    <div ref={ref} className="my-12">
+      {children}
     </div>
   );
-}
+});
 
 export default StepWrapper;

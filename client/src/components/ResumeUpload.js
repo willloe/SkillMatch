@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { getUserId } from "../utils/user";
 
 function ResumeUpload({ onComplete }) {
   const [uploading, setUploading] = useState(false);
@@ -13,7 +14,7 @@ function ResumeUpload({ onComplete }) {
 
     const formData = new FormData();
     formData.append("resume", file);
-    formData.append("user_id", "test_user"); // TODO: Replace with real user ID if needed
+    formData.append("user_id", getUserId()); // TODO: Replace with real user ID if needed
 
     try {
       const response = await fetch("http://localhost:5000/upload", {

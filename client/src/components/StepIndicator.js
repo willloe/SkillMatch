@@ -1,7 +1,7 @@
 import React from "react";
 
 function StepIndicator({ current }) {
-  const steps = ["Upload Resume", "Career Survey", "Results"];
+  const steps = ["Upload Resume", "Career Survey", "Job Recommendations", "Course Recommendation"];
   const progress = ((current - 1) / (steps.length - 1)) * 100;
 
   return (

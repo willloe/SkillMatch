@@ -1,10 +1,10 @@
+from collections import defaultdict
 import os
 import json
+import pandas as pd
 from dotenv import load_dotenv
 from google.generativeai import GenerativeModel, configure
 import google.generativeai as genai
-from pymongo import MongoClient
-from bson.objectid import ObjectId
 
 load_dotenv()
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
@@ -14,14 +14,22 @@ if not GEMINI_API_KEY:
     raise ValueError("Missing GEMINI_API_KEY")
 configure(api_key=GEMINI_API_KEY)
 
-# Models
-embedding_model = GenerativeModel('models/text-embedding-004')
-text_generation_model = GenerativeModel('gemini-1.5-flash-latest')
+skills_csv_path = os.path.join("app", "prompts", "skills.csv")
+skills_df = pd.read_csv(skills_csv_path)
 
-# MongoDB
-client = MongoClient(os.getenv('MONGODB_URI'))
-db = client['skillmatch_db']
-profiles_collection = db['profiles']
+# Group by domain
+skill_domains = defaultdict(list)
+for _, row in skills_df.iterrows():
+    skill_domains[row["Domain"]].append(row["Element Name"].strip())
+
+# Now create prompt-compatible string
+domain_instruction = ""
+for domain, skills in skill_domains.items():
+    quoted_skills = ', '.join([f'"{skill}"' for skill in skills])
+    domain_instruction += f'"{domain}": [{quoted_skills}]\n'
+
+# Models
+text_generation_model = GenerativeModel('gemini-1.5-flash-latest')
 
 def extract_top_skills(resume_text):
     prompt = f"""
@@ -61,37 +69,34 @@ def extract_top_skills(resume_text):
         return []
 
 def extract_categorized_skills(resume_text):
-    import pandas as pd
-    import random
-
-    csv_path = os.path.join("app", "prompts", "skills.csv")
-    skills_df = pd.read_csv(csv_path)
-
-    # Sample up to 20 diverse skills per domain
-    domain_instruction = ""
-    for domain, group in skills_df.groupby("Domain"):
-        sampled = random.sample(list(group["Element Name"]), min(20, len(group)))
-        domain_instruction += f"- {domain}: {', '.join(sampled)}...\n"
-
     prompt = f"""
-    You are a career assistant that analyzes resumes and maps them to structured occupational skill categories.
-
-    Based on the resume below, match relevant content to the following skills grouped by domain:
-
+    You are a career assistant AI that analyzes resumes and maps the candidate’s experience to structured occupational skills.
+    You MUST select skills only from the following predefined domain buckets (based on O*NET taxonomy):
     {domain_instruction}
+    ---
+    Task:
+    - Read the candidate’s resume.
+    - Identify all relevant skills they appear to demonstrate.
+    - Categorize those skills under the appropriate domains above.
+    - ONLY include skills from the list above. DO NOT invent or generalize new skills.
 
-    Return a JSON object like:
+    Return your answer as a JSON object with this structure:
     {{
     "Abilities": [...],
     "Knowledge": [...],
-    ...
+    "Skills": [...],
+    "Work Activities": [...],
+    "Work Context": [...],
+    "Work Styles": [...],
+    "Work Values": [...]
     }}
-    Resume Text:
+
+    Resume:
     --- START RESUME ---
     {resume_text}
     --- END RESUME ---
     """
-    
+
     # Gemini generation logic (same pattern as generate_mcqs)
     generation_config = genai.types.GenerationConfig(
         temperature=0.5,
@@ -128,28 +133,6 @@ def extract_categorized_skills(resume_text):
         print("❌ Structured skills parse error:", response.text)
         raise ValueError("Gemini returned invalid structured skills JSON.")
 
-def generate_and_store_embeddings(text, user_id, top_skills=[], structured_skills={}):
-    try:
-        response = genai.embed_content(
-            model="models/embedding-001",
-            content=text,
-            task_type="retrieval_document"
-        )
-        embeddings = response['embedding']
-
-        profile_data = {
-            'user_id': user_id,
-            'embeddings': embeddings,
-            'top_skills': top_skills,
-            'structured_skills': structured_skills
-        }
-
-        result = profiles_collection.insert_one(profile_data)
-        return result.inserted_id
-
-    except Exception as e:
-        raise ValueError(f"Error generating embeddings: {e}")
-
 def generate_mcq_survey_prompt(resume_text, top_skills=[], structured_skills={}):
     # Format structured_skills for the prompt
     structured_summary = "\n".join([
@@ -163,8 +146,8 @@ def generate_mcq_survey_prompt(resume_text, top_skills=[], structured_skills={})
     You are a career advisor AI helping someone discover their next step in work and learning.
 
     Their resume has been analyzed. Now, generate **10 multiple-choice questions** that will:
-    1. Uncover their **motivation, budget, and aspirations** (first 3 questions)
-    2. Identify **gaps or preferences** in their work style, skills, or knowledge (last 7 questions)
+    1. Uncover their **motivation, budget, time, and aspirations** (first 4 questions)
+    2. Identify **gaps or preferences** in their work style, skills, or knowledge (last 6 questions)
 
     ---
 
@@ -187,12 +170,13 @@ def generate_mcq_survey_prompt(resume_text, top_skills=[], structured_skills={})
     ]
 
     ### INSTRUCTIONS:
-    - Questions 1–3 must focus on career **intent, dream company, job title, learning budget, or motivation**.
-    - Questions 4–10 must explore **missing dimensions** from the resume, such as:
+    - Questions 1–4 must focus on career **intent, dream company, job title, learning budget, learning time, or motivation**.
+    - Questions 5–10 must explore **missing dimensions** from the resume, such as:
     - Skills not mentioned
     - Learning style (online vs in-person)
     - Ideal job environment (hybrid, remote)
     - Work values or preferences
+    - Do not use placeholders like [Insert answer here] or [Describe reason]. Write full, meaningful options for each question.
     - Keep each question clear, friendly, and answerable regardless of their experience level.
     - Use resume-based context to personalize, but feel free to ask broad questions too.
 
@@ -237,3 +221,49 @@ def generate_mcqs(resume_text, top_skills=[], structured_skills={}):
         raise ValueError("Gemini did not return 10 valid MCQs.")
     except json.JSONDecodeError:
         raise ValueError("Gemini returned invalid JSON.")
+
+def generate_user_summary(answers):
+    prompt = f"""
+You are a career assistant AI.
+You are given a user's multiple-choice survey answers. Your task is to:
+1. Match each answer to one or more of these **predefined structured occupational skill categories** only:
+{domain_instruction}
+Return a JSON object structured as:
+{{
+  "structured_skills_from_survey": {{
+    "Abilities": [...],
+    "Knowledge": [...],
+    "Skills": [...],
+    "Work Activities": [...],
+    "Work Context": [...],
+    "Work Styles": [...],
+    "Work Values": [...]
+  }},
+  "summary": "A 4–6 sentence description of the user's motivations, goals, and preferences based on their answers, including their time and budget for learning."
+}}
+Only include skills that exist in the provided lists — **do not invent new skills**. You can omit empty categories.
+
+User’s survey answers:
+{json.dumps(answers, indent=2)}
+"""
+
+    try:
+        # print("🧠 Sending prompt to Gemini for user summary...")
+        model = GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content(prompt)
+
+        cleaned_json = response.text.strip().lstrip("```json\n").rstrip("```").strip()
+        # print("📥 Gemini raw response:")
+        # print(cleaned_json)
+
+        result = json.loads(cleaned_json)
+
+        # print("\n✅ Parsed structured skills:")
+        # print(json.dumps(result.get("structured_skills_from_survey", {}), indent=2))
+
+        # print("\n📝 Summary output:")
+        # print(result.get("summary", ""))
+
+        return result
+    except Exception as e:
+        raise ValueError(f"Error generating user profile summary: {e}")

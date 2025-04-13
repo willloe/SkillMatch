@@ -1,28 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import JobCard from "./JobCard";
 
-function Results({ careerIntent, answers }) {
-  const entries = Object.entries(answers);
+function Results({ recommendations = [], onSelectJob }) {
+  const [selectedJob, setSelectedJob] = useState(null);
+
+  const handleSelect = (jobTitle) => {
+    setSelectedJob(jobTitle);
+    onSelectJob(jobTitle); // send to backend or next step
+  };
+
+  const filteredJobs = selectedJob
+    ? recommendations.filter((job) => job.title === selectedJob)
+    : recommendations;
 
   return (
-    <div className="p-6 bg-white rounded shadow mt-4 max-w-xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Your Career Plan Summary</h2>
+    <div className="max-w-2xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4 text-center">
+        {selectedJob ? "You selected:" : "Career Recommendations"}
+      </h2>
 
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold">Your Selected Career Intent:</h3>
-        <p className="text-blue-700 mt-2">{careerIntent}</p>
-      </div>
-
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Your Answers:</h3>
-        <ul className="space-y-4">
-          {entries.map(([question, answer], idx) => (
-            <li key={idx} className="bg-gray-50 p-4 rounded shadow">
-              <p className="font-medium mb-1">{question}</p>
-              <p className="text-blue-600">{answer}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {recommendations.length === 0 && !selectedJob ? (
+          <p>No recommendations available at this time.</p>
+        ) : selectedJob ? (
+          <JobCard job={selectedJob} isSelected={true} />
+        ) : (
+          <ul className="space-y-4">
+            {recommendations.map((job, idx) => (
+              <JobCard
+                key={idx}
+                job={job}
+                onSelect={onSelectJob}
+                isSelected={selectedJob?.title === job.title}
+              />
+            ))}
+          </ul>
+        )}
     </div>
   );
 }
