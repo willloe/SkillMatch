@@ -78,7 +78,7 @@ class embedd:
             metadata = row.to_dict()
             index.upsert([(str(row['row_id']), embedding, metadata)])
 
-        print("✅ Program data embedded and stored in 'program-matching' index.")
+        print("Program data embedded and stored in 'program-matching' index.")
 
     def add_course(self):
         with open("courses_summary_by_query.json", "r", encoding="utf-8") as f:
@@ -104,7 +104,7 @@ class embedd:
             index.upsert([
                 (course['url'], embedding, course)
             ])
-            print(f"✅ Upserted: {course['title'][:60]}...")
+            print(f"Upserted: {course['title'][:60]}...")
 
         print(f"\nSuccessfully stored {len(course_list)} courses in Pinecone!")
 

@@ -14,7 +14,7 @@ function ResumeUpload({ onComplete }) {
 
     const formData = new FormData();
     formData.append("resume", file);
-    formData.append("user_id", getUserId()); // TODO: Replace with real user ID if needed
+    formData.append("user_id", getUserId());
 
     try {
       const response = await fetch("http://localhost:5000/upload", {
@@ -25,7 +25,7 @@ function ResumeUpload({ onComplete }) {
       const data = await response.json();
 
       if (!response.ok) {
-        console.error("❌ Upload failed:", data);
+        console.error("Upload failed:", data);
         alert(`Upload failed: ${data.error || 'Unknown error'}`);
         return;
       }
@@ -40,15 +40,12 @@ function ResumeUpload({ onComplete }) {
           }
         }
         
-        console.log("📦 Response data:", data);
-        // console.log("Questions data:", data.questions);
-        // console.log("Parsed data:", parsedQuestions);
+        console.log("Response data:", data);
 
         const incomingQuestions = Array.isArray(parsedQuestions)
           ? parsedQuestions
           : [];
 
-        // console.log("Questions data:", incomingQuestions);
         onComplete(incomingQuestions); // Pass up to SkillMatchFlow
       }
     } catch (err) {

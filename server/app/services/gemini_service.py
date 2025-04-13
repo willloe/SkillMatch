@@ -65,7 +65,7 @@ def extract_top_skills(resume_text):
         skills = json.loads(raw_text)
         return skills
     except Exception as e:
-        print("❌ Skill extraction failed:", e)
+        print("Skill extraction failed:", e)
         return []
 
 def extract_categorized_skills(resume_text):
@@ -130,7 +130,7 @@ def extract_categorized_skills(resume_text):
         raise ValueError("Gemini did not return a valid skills JSON object.")
 
     except json.JSONDecodeError as e:
-        print("❌ Structured skills parse error:", response.text)
+        print("Structured skills parse error:", response.text)
         raise ValueError("Gemini returned invalid structured skills JSON.")
 
 def generate_mcq_survey_prompt(resume_text, top_skills=[], structured_skills={}):
@@ -248,22 +248,10 @@ User’s survey answers:
 """
 
     try:
-        # print("🧠 Sending prompt to Gemini for user summary...")
         model = GenerativeModel("gemini-1.5-flash")
         response = model.generate_content(prompt)
-
         cleaned_json = response.text.strip().lstrip("```json\n").rstrip("```").strip()
-        # print("📥 Gemini raw response:")
-        # print(cleaned_json)
-
         result = json.loads(cleaned_json)
-
-        # print("\n✅ Parsed structured skills:")
-        # print(json.dumps(result.get("structured_skills_from_survey", {}), indent=2))
-
-        # print("\n📝 Summary output:")
-        # print(result.get("summary", ""))
-
         return result
     except Exception as e:
         raise ValueError(f"Error generating user profile summary: {e}")

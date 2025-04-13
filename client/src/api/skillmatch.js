@@ -23,7 +23,7 @@ export async function submitSurveyAnswers(userId, answers) {
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error("❌ Error submitting answers:", err);
+    console.error("Error submitting answers:", err);
     throw err;
   }
 }
@@ -40,7 +40,7 @@ export async function sendSelectedCareer(userId, selectedJob) {
     if (!data.success) throw new Error(data.error || "Failed to save selection.");
     return data;
   } catch (err) {
-    console.error("❌ Error sending selected job:", err);
+    console.error("Error sending selected job:", err);
     throw err;
   }
 }

@@ -20,7 +20,7 @@ class Similarity:
             )
             return response["embedding"]
         except Exception as e:
-            print(f"❌ Error generating embedding: {e}")
+            print(f"Error generating embedding: {e}")
             return []
 
     def return_job(self, text):
@@ -43,7 +43,7 @@ class Similarity:
             return matched_jobs
 
         except Exception as e:
-            print(f"❌ Error querying job index: {e}")
+            print(f"Error querying job index: {e}")
             return []
 
     def return_course(self, text):
@@ -66,7 +66,7 @@ class Similarity:
             return matched_courses
 
         except Exception as e:
-            print(f"❌ Error querying course index: {e}")
+            print(f"Error querying course index: {e}")
             return []
 
     def return_program(self, text):
@@ -89,5 +89,5 @@ class Similarity:
             return matched_programs
 
         except Exception as e:
-            print(f"❌ Error querying program index: {e}")
+            print(f"Error querying program index: {e}")
             return []

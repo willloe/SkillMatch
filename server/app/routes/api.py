@@ -7,7 +7,6 @@ import datetime
 from app.utils.user_id import get_or_create_user_id
 from app.services.similiarity import Similarity
 from app.utils.file_parser import parse_resume
-from app.db.save_resume import save_resume_to_mongo
 from app.services.gemini_service import (
     extract_top_skills,
     extract_categorized_skills,
@@ -59,8 +58,8 @@ def upload_resume():
         }), 200
 
     except Exception as e:
-        print("❌ Upload Error:", str(e))
-        traceback.print_exc()  # ✅ full stack trace
+        print("Upload Error:", str(e))
+        traceback.print_exc()
         return jsonify({"error": f"Upload failed: {str(e)}"}), 500
     
 @api.route("/submit-answers", methods=["POST"])
@@ -93,7 +92,7 @@ def submit_answers():
         })
 
     except Exception as e:
-        print("❌ Submit Error:", e)
+        print("Submit Error:", e)
         return jsonify({"error": str(e)}), 500
 
 def run_recommendation_model(user_id):
@@ -110,10 +109,6 @@ def run_recommendation_model(user_id):
         resume_text = profile.get("resume_text", "")
         sim = Similarity()
         jobs = sim.return_job(resume_text)
-
-        print("✅ Recommendations:")
-        for job in jobs:
-            print(job)
 
         return jobs
 
@@ -150,7 +145,7 @@ def selected_job():
 
         # Identify missing skills
         missing_skills = list(job_skills - user_skills)
-        print("📉 Skill gap:", missing_skills)
+        print("Skill gap:", missing_skills)
 
         # Run course and program recommendations
         sim = Similarity()

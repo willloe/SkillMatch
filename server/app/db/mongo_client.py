@@ -19,7 +19,6 @@ def save_resume_to_mongo(user_id, text, upload_time):
         "upload_time": upload_time,
     }
     result = resumes_collection.insert_one(resume_data)
-    # print("✅ Resume saved with ID:", str(result))
     return result.inserted_id
 
 
@@ -40,7 +39,6 @@ def store_profile_basics(user_id, resume_text, top_skills, structured_skills, re
             upsert=True,
         )
         updated_profile = profiles_collection.find_one({"user_id": user_id})
-        # print("✅ store_profile_basics: Updated Profile Object:")
         print(updated_profile["structured_skills"])
 
         return result.upserted_id or profiles_collection.find_one({"user_id": user_id})["_id"]
@@ -61,11 +59,6 @@ def update_profile_with_survey(user_id, answers, categorized_answers, summary):
                 }
             },
         )
-        # updated_profile = profiles_collection.find_one({"user_id": user_id})
-        # print("✅ update_profile_with_survey: Updated Profile Object:")
-        # print(updated_profile["structured_skills"])
-        # print(updated_profile["career_summary"])
-
         return result.modified_count
     except Exception as e:
         raise ValueError(f"Error updating profile with survey: {e}")
@@ -76,5 +69,5 @@ def get_profile_by_user_id(user_id):
         profile = profiles_collection.find_one({"user_id": user_id})
         return profile
     except Exception as e:
-        print(f"❌ Error retrieving profile for user_id {user_id}: {e}")
+        print(f"Error retrieving profile for user_id {user_id}: {e}")
         return None

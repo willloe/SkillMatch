@@ -45,14 +45,12 @@ function SkillMatchFlow() {
     try {
       const userId = getUserId();  
       const result = await submitSurveyAnswers(userId, selectedAnswers);
-      console.log("✅ Backend response:", result);
       if (result.recommendations) {
-        console.log(result.recommendations)
         setJobRecommendations(result.recommendations);
       }
       setStep(3);
     } catch (error) {
-      console.error("❌ Failed to submit survey:", error);
+      console.error("Failed to submit survey:", error);
       alert("Something went wrong while submitting your answers.");
     }
   };
@@ -68,7 +66,7 @@ function SkillMatchFlow() {
       });
   
       const data = await response.json();
-      console.log("✅ Career selection saved:", data);
+      console.log("Career selection saved:", data);
   
       if (data.success) {
         setSelectedJob(job);
@@ -79,10 +77,10 @@ function SkillMatchFlow() {
         });
         setStep(4); // ⬅️ Only if you want to move to step 4 after job selection
       } else {
-        console.error("❌ Backend returned error:", data.error);
+        console.error("Backend returned error:", data.error);
       }
     } catch (err) {
-      console.error("❌ Failed to submit selected job:", err);
+      console.error("Failed to submit selected job:", err);
     }
   };
 
